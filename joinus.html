@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gym Membership Form</title>
+
+    <!-- 
+    - favicon
+  -->
+  <link rel="shortcut icon" href="./favivon.png" type="image/svg+xml">
+  
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0a0a0a;
+            color: #f0f0f0;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background: #1a1a2e;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 255, 0.5);
+        }
+
+        h2 {
+            color: #1e90ff;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            text-align: left;
+            font-size: 16px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        input[type="checkbox"] {
+            width: auto;
+            margin-left: 10px;
+        }
+
+        .price-box {
+            margin-top: 20px;
+            padding: 10px;
+            background: #003366;
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #1e90ff;
+            color: white;
+            padding: 10px;
+            border: none;
+            width: 100%;
+            font-size: 16px;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Gym Membership Form</h2>
+        <form id="gymForm">
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" required>
+
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" required>
+
+            <label for="subscription">Subscription Plan:</label>
+            <select id="subscription" onchange="calculatePrice()">
+                <option value="1" data-price="1500">1 Month - ₹1500</option>
+                <option value="3" data-price="4000">3 Months - ₹4000</option>
+                <option value="6" data-price="7000">6 Months - ₹7000</option>
+                <option value="12" data-price="12000">12 Months - ₹12000</option>
+            </select>
+
+            <label>
+                <input type="checkbox" id="ptOption" onchange="calculatePrice()"> Personal Trainer (+ ₹500 per month)
+            </label>
+
+            <div class="price-box">
+                Total Price: ₹<span id="totalPrice">1500</span>
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        function calculatePrice() {
+            const subscription = document.getElementById("subscription");
+            const ptOption = document.getElementById("ptOption");
+            const totalPriceBox = document.getElementById("totalPrice");
+
+            const months = parseInt(subscription.value);
+            const basePrice = parseInt(subscription.options[subscription.selectedIndex].dataset.price);
+            const ptPrice = ptOption.checked ? months * 500 : 0;
+
+            const totalPrice = basePrice + ptPrice;
+            totalPriceBox.innerText = totalPrice;
+        }
+
+        document.getElementById("gymForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+            alert("Form submitted successfully!");
+        });
+    </script>
+
+</body>
+</html>
